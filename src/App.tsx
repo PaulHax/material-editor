@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import cn from "classnames";
 import "./App.css";
+import { MaterialList } from "./MaterialList.js";
 
 // in pixels
 const SIDE_BAR_START_WIDTH = 200;
@@ -117,7 +118,7 @@ function App() {
               )}
             </div>
           </div>
-          Material list
+          <MaterialList />
         </div>
 
         <div
