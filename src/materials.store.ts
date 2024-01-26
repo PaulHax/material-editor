@@ -73,4 +73,5 @@ export const deleteMaterial = (id: string) => {
   return lastId;
 };
 
-export const selectedMaterial = signal<string | undefined>(undefined);
+const startingSelection = Object.keys(materials.value).reverse()?.[0] ?? "";
+export const selectedMaterial = signal<string>(startingSelection);

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@preact/signals-react": "^2.0.0",
+    "@react-three/drei": "^9.96.4",
     "@react-three/fiber": "^8.15.15",
     "@tailwindcss/container-queries": "^0.1.1",
     "@types/three": "^0.160.0",
