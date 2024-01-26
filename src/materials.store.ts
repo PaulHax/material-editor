@@ -47,7 +47,7 @@ const startingMaterials = (() => {
 })();
 
 let lastId = Math.max(...Object.keys(startingMaterials).map(Number));
-export const materials = signal(startingMaterials);
+export const materials = signal<Record<string, Material>>(startingMaterials);
 
 effect(() => {
   const materialJson = JSON.stringify(materials.value);

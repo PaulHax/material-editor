@@ -3,6 +3,7 @@ import cn from "classnames";
 import "./App.css";
 import { MaterialList } from "./MaterialList.js";
 import { ShareButton } from "./ShareButton.js";
+import { MaterialViewer } from "./MaterialViewer.js";
 
 // in pixels
 const SIDE_BAR_START_WIDTH = 200;
@@ -39,8 +40,8 @@ function CollapseArrow({ collapsed }: { collapsed: boolean }) {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className={cn("transform", {
-          "rotate-180": collapsed,
-          "rotate-90": !collapsed,
+          "rotate-180": !collapsed,
+          "rotate-90": collapsed,
         })}
         fill="none"
         viewBox="0 0 24 24"
@@ -96,6 +97,11 @@ function App() {
 
   return (
     <div className="relative flex w-full h-full">
+      <div className="order-last flex-1 flex place-content-center bg-black">
+        <ShareButton />
+        <MaterialViewer />
+      </div>
+
       <div className="relative bg-slate-50">
         <div
           className={cn("h-full flex flex-col", {
@@ -140,12 +146,6 @@ function App() {
           <div className="w-1.5 h-8 bg-slate-500/60 border-4 rounded-full"></div>
         </div>
       </div>
-
-      <div className="flex-1 flex place-content-center">
-        <div>Material</div>
-      </div>
-
-      <ShareButton />
     </div>
   );
 }

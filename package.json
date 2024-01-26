@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "@preact/signals-react": "^2.0.0",
+    "@react-three/fiber": "^8.15.15",
     "@tailwindcss/container-queries": "^0.1.1",
+    "@types/three": "^0.160.0",
     "classnames": "^2.5.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "three": "^0.160.1"
   },
   "devDependencies": {
     "@preact/signals-react-transform": "^0.3.0",

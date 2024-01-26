@@ -30,7 +30,7 @@ export function MaterialList() {
       <div className="grid @[14rem]:grid-cols-2 @[28rem]:grid-cols-3 gap-4 ">
         <div className="aspect-square rounded-md flex justify-center items-center">
           <button
-            className="w-full h-full bg-gray-200"
+            className="w-full h-full bg-gray-200 select-none"
             onClick={() => createMaterial()}
           >
             Create Material
