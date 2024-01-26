@@ -97,7 +97,7 @@ function App() {
     <div className="flex w-full h-full">
       <div className="relative bg-slate-50">
         <div
-          className={cn("overflow-hidden h-full", {
+          className={cn("h-full flex flex-col", {
             "transition-width ease-in-out duration-100": !dragging,
           })}
           style={{ width, maxWidth: "calc(100vw - 1.5rem)" }}
@@ -118,7 +118,9 @@ function App() {
               )}
             </div>
           </div>
-          <MaterialList />
+          <div className={cn("overflow-auto", { hidden: collapsed })}>
+            <MaterialList />
+          </div>
         </div>
 
         <div
