@@ -4,6 +4,7 @@ import "./App.css";
 import { MaterialList } from "./MaterialList.js";
 import { ShareButton } from "./ShareButton.js";
 import { MaterialViewer } from "./MaterialViewer.js";
+import { MaterialParameters } from "./MaterialParameters.js";
 
 // in pixels
 const SIDE_BAR_START_WIDTH = 200;
@@ -97,9 +98,10 @@ function App() {
 
   return (
     <div className="relative flex w-full h-full">
-      <div className="order-last flex-1 flex place-content-center bg-black">
+      <div className="flex-1 flex place-content-center bg-gray-300 order-last min-w-0 relative">
         <MaterialViewer />
         <ShareButton />
+        <MaterialParameters />
       </div>
 
       <div className="relative bg-slate-50">
@@ -132,7 +134,7 @@ function App() {
 
         <div
           className={cn(
-            "absolute top-1/2 -right-10 w-8 cursor-ew-resize transition-opacity",
+            "absolute top-1/2 -right-10 w-8 cursor-ew-resize transition-opacity z-10",
             { "pointer-events-none": collapsed }
           )}
           draggable="false"

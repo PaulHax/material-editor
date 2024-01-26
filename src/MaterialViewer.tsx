@@ -10,15 +10,12 @@ const MESH_SPACING = 2.5;
 function MaterialMesh({
   materialId,
   x,
-  y,
   fitCamera,
 }: {
   materialId: string;
   x: number;
-  y: number;
   fitCamera: (mesh: Mesh) => void;
 }) {
-  const material = materials.value[materialId];
   const mesh = useRef<Mesh>(null);
 
   const handleClick = () => {
@@ -42,17 +39,32 @@ function MaterialMesh({
   });
   const s = scale.value;
 
+  const roughness = useComputed(() => {
+    return materials.value[materialId].roughness;
+  });
+  const metalness = useComputed(() => {
+    return materials.value[materialId].metalness;
+  });
+  const color = useComputed(() => {
+    return materials.value[materialId].color;
+  });
+  console.log(roughness.value);
+
   return (
     <mesh
       ref={mesh}
-      position={[x, y, 0]}
+      position={[x, 0, 0]}
       scale={[s, s, s]}
       onClick={handleClick}
       onPointerOver={() => (hover.value = true)}
       onPointerOut={() => (hover.value = false)}
     >
       <sphereGeometry />
-      <meshStandardMaterial color={material.color} />
+      <meshStandardMaterial
+        color={color.value}
+        roughness={roughness.value}
+        metalness={metalness.value}
+      />
     </mesh>
   );
 }
@@ -71,14 +83,11 @@ export function MaterialViewer() {
       {Object.keys(materials.value)
         .reverse()
         .map((id, index) => {
-          const row = Math.floor(index / 3);
-          const col = index % 3;
           return (
             <MaterialMesh
               key={id}
               materialId={id}
-              x={col * MESH_SPACING}
-              y={row * MESH_SPACING}
+              x={index * MESH_SPACING}
               fitCamera={fitCamera}
             />
           );

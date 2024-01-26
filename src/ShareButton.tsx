@@ -16,7 +16,7 @@ export function ShareButton() {
 
   return (
     <>
-      <div className="absolute right-16 top-2 w-6 h-6 mt-0.5 select-none">
+      <div className="absolute right-16 bottom-8 w-6 h-6 mt-0.5 select-none">
         <button onClick={() => setOpen(!open)}>Share</button>
       </div>
       <div

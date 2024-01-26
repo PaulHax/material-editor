@@ -2,29 +2,34 @@ import { signal, effect } from "@preact/signals-react";
 
 export type Material = {
   id: string;
-  name: string;
+  roughness: number;
+  metalness: number;
   color: string;
 };
 
 const MATERIAL_DEFAULT = {
-  name: "New Material",
   color: "red",
+  roughness: 0.9,
+  metalness: 0.5,
 };
 
 const MATERIALS_DEFAULT = {
   0: {
     id: "0",
-    name: "Material 0",
+    roughness: 0.5,
+    metalness: 0.5,
     color: "red",
   },
   1: {
     id: "1",
-    name: "Material 1",
+    roughness: 0.1,
+    metalness: 0.5,
     color: "green",
   },
   2: {
     id: "2",
-    name: "Material 2",
+    roughness: 0.9,
+    metalness: 0.5,
     color: "blue",
   },
 };
@@ -50,20 +55,6 @@ const startingMaterials = (() => {
 let lastId = Math.max(...Object.keys(startingMaterials).map(Number));
 export const materials = signal<Record<string, Material>>(startingMaterials);
 
-export const createMaterial = (material: Partial<Material> = {}) => {
-  ++lastId;
-  const newMaterial = { ...MATERIAL_DEFAULT, ...material, id: String(lastId) };
-  materials.value = { [lastId]: newMaterial, ...materials.value };
-  return lastId;
-};
-
-export const deleteMaterial = (id: string) => {
-  materials.value = Object.fromEntries(
-    Object.entries(materials.value).filter(([key]) => key !== id)
-  );
-  return lastId;
-};
-
 const startingSelection =
   urlParams.get(SELECTED_MATERIAL_STORAGE_KEY) ??
   localStorage.getItem(SELECTED_MATERIAL_STORAGE_KEY) ??
@@ -71,6 +62,27 @@ const startingSelection =
   "";
 
 export const selectedMaterial = signal<string>(startingSelection);
+
+export const createMaterial = (material: Partial<Material> = {}) => {
+  const id = String(++lastId);
+  const newMaterial = { ...MATERIAL_DEFAULT, ...material, id };
+  materials.value = { [id]: newMaterial, ...materials.value };
+  selectedMaterial.value = id;
+  return lastId;
+};
+
+export const deleteMaterial = (id: string) => {
+  materials.value = Object.fromEntries(
+    Object.entries(materials.value).filter(([key]) => key !== id)
+  );
+};
+
+export const updateMaterial = (id: string, material: Partial<Material>) => {
+  const existingMaterial = materials.value[id];
+  if (!existingMaterial) throw new Error(`Material ${id} does not exist`);
+  materials.value[id] = { ...existingMaterial, ...material };
+  materials.value = { ...materials.value };
+};
 
 // serialize and save state
 effect(() => {
