@@ -72,3 +72,5 @@ export const deleteMaterial = (id: string) => {
   );
   return lastId;
 };
+
+export const selectedMaterial = signal<string | undefined>(undefined);

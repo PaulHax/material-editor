@@ -9,7 +9,7 @@ function copyAddressToClipboard() {
 export function ShareButton() {
   const [open, setOpen] = useState(false);
 
-  const handleCopy = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleCopy = (e: React.MouseEvent) => {
     e.stopPropagation();
     copyAddressToClipboard();
   };

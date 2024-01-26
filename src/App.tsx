@@ -98,8 +98,8 @@ function App() {
   return (
     <div className="relative flex w-full h-full">
       <div className="order-last flex-1 flex place-content-center bg-black">
-        <ShareButton />
         <MaterialViewer />
+        <ShareButton />
       </div>
 
       <div className="relative bg-slate-50">
@@ -143,7 +143,7 @@ function App() {
           }}
           onPointerDown={startResize}
         >
-          <div className="w-1.5 h-8 bg-slate-500/60 border-4 rounded-full"></div>
+          <div className="w-1.5 h-8 bg-slate-500 border-4 rounded-full"></div>
         </div>
       </div>
     </div>
