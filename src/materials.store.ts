@@ -52,7 +52,8 @@ const startingMaterials = (() => {
   return MATERIALS_DEFAULT;
 })();
 
-let lastId = Math.max(...Object.keys(startingMaterials).map(Number));
+const startingKeys = Object.keys(startingMaterials).map(Number);
+let lastId = startingKeys.length > 0 ? Math.max(...startingKeys) : 0;
 export const materials = signal<Record<string, Material>>(startingMaterials);
 
 const startingSelection =
@@ -75,11 +76,14 @@ export const deleteMaterial = (id: string) => {
   materials.value = Object.fromEntries(
     Object.entries(materials.value).filter(([key]) => key !== id)
   );
+  if (selectedMaterial.value === id) {
+    selectedMaterial.value = Object.keys(materials.value).reverse()?.[0] ?? "";
+  }
 };
 
 export const updateMaterial = (id: string, material: Partial<Material>) => {
   const existingMaterial = materials.value[id];
-  if (!existingMaterial) throw new Error(`Material ${id} does not exist`);
+  if (!existingMaterial) return;
   materials.value[id] = { ...existingMaterial, ...material };
   materials.value = { ...materials.value };
 };
@@ -98,3 +102,13 @@ effect(() => {
   const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
   window.history.replaceState(null, "", newUrl);
 });
+
+export const thumbnails = signal<Record<string, string>>({});
+
+export const thumbnailsTrigger = signal(0);
+export const updateThumbnails = () => {
+  // hack to avoid React render cycle
+  setTimeout(() => {
+    thumbnailsTrigger.value = thumbnailsTrigger.value + 1;
+  }, 0);
+};

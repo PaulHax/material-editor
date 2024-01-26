@@ -5,6 +5,7 @@ import { MaterialList } from "./MaterialList.js";
 import { ShareButton } from "./ShareButton.js";
 import { MaterialViewer } from "./MaterialViewer.js";
 import { MaterialParameters } from "./MaterialParameters.js";
+import { ThumbNailer } from "./ThumbNailer.js";
 
 // in pixels
 const SIDE_BAR_START_WIDTH = 200;
@@ -145,9 +146,11 @@ function App() {
           }}
           onPointerDown={startResize}
         >
-          <div className="w-1.5 h-8 bg-slate-500 border-4 rounded-full"></div>
+          <div className="w-2 h-8 bg-slate-50 rounded-full"></div>
         </div>
       </div>
+
+      <ThumbNailer />
     </div>
   );
 }
