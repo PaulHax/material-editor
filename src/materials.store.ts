@@ -30,9 +30,10 @@ const MATERIALS_DEFAULT = {
 };
 
 const MATERIALS_STORAGE_KEY = "materials";
+const SELECTED_MATERIAL_STORAGE_KEY = "selected-material";
 
+const urlParams = new URLSearchParams(window.location.search);
 const startingMaterials = (() => {
-  const urlParams = new URLSearchParams(window.location.search);
   const urlMaterials = urlParams.get(MATERIALS_STORAGE_KEY);
   if (urlMaterials) {
     return JSON.parse(urlMaterials) as Record<string, Material>;
@@ -49,16 +50,6 @@ const startingMaterials = (() => {
 let lastId = Math.max(...Object.keys(startingMaterials).map(Number));
 export const materials = signal<Record<string, Material>>(startingMaterials);
 
-effect(() => {
-  const materialJson = JSON.stringify(materials.value);
-  localStorage.setItem(MATERIALS_STORAGE_KEY, materialJson);
-
-  const urlParams = new URLSearchParams(window.location.search);
-  urlParams.set(MATERIALS_STORAGE_KEY, materialJson);
-  const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
-  window.history.replaceState(null, "", newUrl);
-});
-
 export const createMaterial = (material: Partial<Material> = {}) => {
   ++lastId;
   const newMaterial = { ...MATERIAL_DEFAULT, ...material, id: String(lastId) };
@@ -73,5 +64,25 @@ export const deleteMaterial = (id: string) => {
   return lastId;
 };
 
-const startingSelection = Object.keys(materials.value).reverse()?.[0] ?? "";
+const startingSelection =
+  urlParams.get(SELECTED_MATERIAL_STORAGE_KEY) ??
+  localStorage.getItem(SELECTED_MATERIAL_STORAGE_KEY) ??
+  Object.keys(materials.value).reverse()?.[0] ??
+  "";
+
 export const selectedMaterial = signal<string>(startingSelection);
+
+// serialize and save state
+effect(() => {
+  const materialJson = JSON.stringify(materials.value);
+  const selectedString = selectedMaterial.value;
+
+  localStorage.setItem(MATERIALS_STORAGE_KEY, materialJson);
+  localStorage.setItem(SELECTED_MATERIAL_STORAGE_KEY, selectedString);
+
+  const urlParams = new URLSearchParams(window.location.search);
+  urlParams.set(MATERIALS_STORAGE_KEY, materialJson);
+  urlParams.set(SELECTED_MATERIAL_STORAGE_KEY, selectedString);
+  const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+  window.history.replaceState(null, "", newUrl);
+});
