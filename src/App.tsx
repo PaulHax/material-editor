@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import cn from "classnames";
 import "./App.css";
 import { MaterialList } from "./MaterialList.js";
+import { ShareButton } from "./ShareButton.js";
 
 // in pixels
 const SIDE_BAR_START_WIDTH = 200;
@@ -94,7 +95,7 @@ function App() {
   const width = `${widthPixels}px`;
 
   return (
-    <div className="flex w-full h-full">
+    <div className="relative flex w-full h-full">
       <div className="relative bg-slate-50">
         <div
           className={cn("h-full flex flex-col", {
@@ -143,6 +144,8 @@ function App() {
       <div className="flex-1 flex place-content-center">
         <div>Material</div>
       </div>
+
+      <ShareButton />
     </div>
   );
 }
