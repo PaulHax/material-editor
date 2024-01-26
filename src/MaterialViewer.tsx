@@ -48,7 +48,6 @@ function MaterialMesh({
   const color = useComputed(() => {
     return materials.value[materialId].color;
   });
-  console.log(roughness.value);
 
   return (
     <mesh
@@ -72,12 +71,12 @@ function MaterialMesh({
 export function MaterialViewer() {
   const controls = useRef<CameraControls>(null);
   const fitCamera = (mesh: Mesh) => {
-    if (controls.current) controls.current?.fitToBox(mesh, true);
+    if (controls.current) controls.current?.fitToSphere(mesh, true);
   };
 
   return (
     <Canvas camera={{ fov: 10 }}>
-      <CameraControls ref={controls} makeDefault />
+      <CameraControls ref={controls} />
       <ambientLight />
       <directionalLight position={[1, 1, 1]} />
       {Object.keys(materials.value)

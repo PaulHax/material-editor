@@ -4,12 +4,13 @@ import {
   updateMaterial,
 } from "./materials.store.js";
 import { useComputed } from "@preact/signals-react";
+import { ChromePicker } from "react-color";
 
 export function MaterialParameters() {
   const material = useComputed(() => materials.value[selectedMaterial.value]);
 
   return (
-    <div className="absolute top-0 right-0 bg-gray-200 rounded-bl-lg">
+    <div className="absolute top-0 right-0 bg-gray-200 rounded-bl-lg drop-shadow-lg">
       <div className="p-4">
         <div className="flex flex-col gap-2">
           <label className="flex gap-2 items-center">
@@ -38,10 +39,14 @@ export function MaterialParameters() {
               }}
             />
           </label>
-          <label className="flex gap-2 items-center">
-            <input type="checkbox" className="w-4 h-4" />
-            <span>Double Sided</span>
-          </label>
+          <ChromePicker
+            color={material.value?.color ?? "#ffffff"}
+            onChange={(color) => {
+              updateMaterial(selectedMaterial.value, {
+                color: color.hex,
+              });
+            }}
+          />
         </div>
       </div>
     </div>

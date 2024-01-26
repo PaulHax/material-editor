@@ -19,7 +19,7 @@ function MaterialPreview({ materialId }: { materialId: string }) {
   return (
     <div className="relative flex">
       <button
-        className={cn("flex-1", { "bg-gray-300 drop-shadow-xl": selected })}
+        className={cn("flex-1", { "bg-gray-300 drop-shadow-lg": selected })}
         onClick={handleSelect}
       >
         <div
