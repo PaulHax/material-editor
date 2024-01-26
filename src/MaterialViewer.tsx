@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useSignal, useComputed, useSignalEffect } from "@preact/signals-react";
+import { useComputed, useSignalEffect } from "@preact/signals-react";
 import type { Mesh } from "three";
 import { Canvas } from "@react-three/fiber";
 import { CameraControls } from "@react-three/drei";
@@ -32,13 +32,6 @@ function MaterialMesh({
     }
   });
 
-  const hover = useSignal(false);
-  const scale = useComputed(() => {
-    if (hover.value) return 1.1;
-    return 1;
-  });
-  const s = scale.value;
-
   const roughness = useComputed(() => {
     return materials.value[materialId].roughness;
   });
@@ -50,14 +43,7 @@ function MaterialMesh({
   });
 
   return (
-    <mesh
-      ref={mesh}
-      position={[x, 0, 0]}
-      scale={[s, s, s]}
-      onClick={handleClick}
-      onPointerOver={() => (hover.value = true)}
-      onPointerOut={() => (hover.value = false)}
-    >
+    <mesh ref={mesh} position={[x, 0, 0]} onClick={handleClick}>
       <sphereGeometry />
       <meshStandardMaterial
         color={color.value}
