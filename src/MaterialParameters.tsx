@@ -41,7 +41,7 @@ export function MaterialParameters() {
           </label>
           <ChromePicker
             color={material.value?.color ?? "#ffffff"}
-            onChange={(color) => {
+            onChange={(color: { hex: string }) => {
               updateMaterial(selectedMaterial.value, {
                 color: color.hex,
               });

@@ -9,7 +9,7 @@ function MaterialMakeup({
   meshMaterial,
 }: {
   materialId: string;
-  meshMaterial: MutableRefObject<MeshStandardMaterial>;
+  meshMaterial: MutableRefObject<MeshStandardMaterial | null>;
 }) {
   const roughness = useComputed(() => {
     return materials.value[materialId].roughness;
@@ -36,7 +36,7 @@ function MaterialMakeup({
 }
 
 export function ThumbNailer() {
-  const meshMaterial = useRef<MeshStandardMaterial>(null);
+  const meshMaterial = useRef<MeshStandardMaterial | null>(null);
   return (
     <div className="absolute w-60 aspect-square -left-[300px]">
       <Canvas camera={{ fov: 10, position: new Vector3(0, 0, 14) }}>
