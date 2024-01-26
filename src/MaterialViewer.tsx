@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useComputed, useSignalEffect } from "@preact/signals-react";
 import type { Mesh } from "three";
 import { Canvas } from "@react-three/fiber";
@@ -42,13 +42,28 @@ function MaterialMesh({
     return materials.value[materialId].color;
   });
 
+  const [hovered, setHover] = useState(false);
+  const opacity = (() => {
+    if (selected.value) return 1;
+    if (hovered) return 0.85;
+    return 0.7;
+  })();
+
   return (
-    <mesh ref={mesh} position={[x, 0, 0]} onClick={handleClick}>
+    <mesh
+      ref={mesh}
+      position={[x, 0, 0]}
+      onClick={handleClick}
+      onPointerOver={() => setHover(true)}
+      onPointerOut={() => setHover(false)}
+    >
       <sphereGeometry />
       <meshStandardMaterial
         color={color.value}
         roughness={roughness.value}
         metalness={metalness.value}
+        transparent={true}
+        opacity={opacity}
       />
     </mesh>
   );

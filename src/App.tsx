@@ -99,9 +99,8 @@ function App() {
 
   return (
     <div className="relative flex w-full h-full">
-      <div className="flex-1 flex place-content-center bg-gray-300 order-last min-w-0 relative">
+      <div className="flex-1 flex place-content-center bg-gray-300 order-last min-w-0">
         <MaterialViewer />
-        <ShareButton />
         <MaterialParameters />
       </div>
 
@@ -135,7 +134,7 @@ function App() {
 
         <div
           className={cn(
-            "absolute top-1/2 -right-10 w-8 cursor-ew-resize transition-opacity z-10",
+            "absolute top-1/2 -right-10 w-8 cursor-ew-resize transition-opacity",
             { "pointer-events-none": collapsed }
           )}
           draggable="false"
@@ -150,6 +149,7 @@ function App() {
         </div>
       </div>
 
+      <ShareButton />
       <ThumbNailer />
     </div>
   );
